@@ -5,7 +5,7 @@ Remake of my other library, LSnum.
 To make a LS object, use the following function: `LS(Number)`
 
 LS Operations:
-`add(x)         <- Adds (x) to a number.
+`add(x)         <- Adds (x) to a number.\n
 sub(x)         <- Subtracts a number by (x)
 mul(x)         <- Multiplies a number by (x)
 div(x)         <- Divides a number by (x)
