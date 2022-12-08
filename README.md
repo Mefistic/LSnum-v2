@@ -2,7 +2,10 @@
 Remake of my other library, LSnum.
 
 # Documentation
-To make a LS object, use the following function: `LS(Number)`
+To make a LS object, use the following function:
+```javascript
+LS(Number)
+```
 
 LS Operations:
 ```javascript
