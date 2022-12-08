@@ -60,19 +60,22 @@ class LSnum
 
 	pow(x)
 	{
-		this.l = this.l * x
-		return this
+		x = new LSnum(x)
+		this.l = this.l * Math.pow(10, x.l)
+		return new LSnum(this)
 	}
 
 	root(x)
 	{
-		this.l = this.l / x
-		return this
+		x = new LSnum(x)
+		this.l = this.l / Math.pow(10, x.l)
+		return new LSnum(this)
 	}
 
 	log(x)
 	{
-		this.l = this.l / Math.log10(x)
+		x = new LSnum(x)
+		this.l = this.l / x.l
 		return new LSnum(this.l)
 	}
 
@@ -91,6 +94,13 @@ class LSnum
 		return this
 	}
 
+	trunc()
+	{
+		if (this.l < 0) this.l = -Infinity
+		else if (this.l < 15) this.l = Math.trunc(this.l)
+		return this
+	}
+
 	round()
 	{
 		if (this.l <= -0.30102999566398) this.l = -Infinity
@@ -103,7 +113,7 @@ class LSnum
 		if (this.l < -x - 1) return (0).toFixed(x)
 		if (this.l == Infinity) return 'Infinity'
 		if (this.l >= 1e21) return 'e' + this.l
-		if (this.l >= 21) return Math.pow(10, this.l - Math.floor(this.l)).toFixed(x) + 'e' + Math.floor(this.l)
+		if (this.l >= 21) return Math.pow(10, this.l - Math.trunc(this.l)).toFixed(x) + 'e' + Math.trunc(this.l)
 		return Math.pow(10, this.l).toFixed(x)
 	}
 
@@ -159,13 +169,13 @@ class LSnum
 	get e()
 	{
 		if (this.l == -Infinity) return 0
-		return Math.floor(this.l)
+		return Math.trunc(this.l)
 	}
 
 	get m()
 	{
 		if (this.l == -Infinity) return 0
-		return Math.pow(10, this.l - Math.floor(this.l))
+		return Math.pow(10, this.l - Math.trunc(this.l))
 	}
 }
 
