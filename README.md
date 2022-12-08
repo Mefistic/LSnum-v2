@@ -5,7 +5,8 @@ Remake of my other library, LSnum.
 To make a LS object, use the following function: `LS(Number)`
 
 LS Operations:
-`add(x)         <- Adds (x) to a number.\n
+```javascript
+add(x)         <- Adds (x) to a number.
 sub(x)         <- Subtracts a number by (x)
 mul(x)         <- Multiplies a number by (x)
 div(x)         <- Divides a number by (x)
@@ -24,11 +25,14 @@ lt(x)          <- Returns True if Less Than. (<)
 lte(x)         <- Returns True if Less Than or Equal To. (<=)
 eq(x)          <- Returns True if Equal To (==)
 gt(x)          <- Returns True if Greater Than (>)
-gte(x)         <- Returns True if Greater Than or Equal To (>=)`
+gte(x)         <- Returns True if Greater Than or Equal To (>=)
+```
 
 LS Other:
-`LS(LS-Number).e   <- Exponent (e)
-LS(LS-Number).m  <- Mantissa (m)
-scientificNotation(LS-Number, Decimal Places, Decimal Places at Scientific Notation)`
+```javascript
+LS(LS-Number).e   <- Exponent (e)
+LS(LS-Number).m   <- Mantissa (m)
+scientificNotation(LS-Number, Decimal Places, Decimal Places at Scientific Notation)
+```
 
 Note: Quotes are needed when a number is beyond normal Javascript limits.
