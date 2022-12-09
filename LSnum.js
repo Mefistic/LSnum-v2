@@ -177,6 +177,16 @@ class LSnum
 		if (this.l == -Infinity) return 0
 		return Math.pow(10, this.l - Math.trunc(this.l))
 	}
+
+	toString()
+	{
+		return this.m + 'e' + this.e
+	}
+
+	toJSON()
+	{
+		return this.toString()
+	}
 }
 
 // QoL !!!
