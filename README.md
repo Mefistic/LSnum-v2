@@ -35,9 +35,9 @@ toJSON()       <- Redirects to toString()
 
 LS Other:
 ```javascript
-LS(LS-Number).e   <- Exponent (e)
-LS(LS-Number).m   <- Mantissa (m)
-scientificNotation(LS-Number, Decimal Places, Decimal Places at Scientific Notation)
+LS(x).e   <- Exponent (e)
+LS(x).m   <- Mantissa (m)
+scientificNotation(x, d1, d2)
 ```
 
 Note: Quotes are needed when a number is beyond normal Javascript limits.
