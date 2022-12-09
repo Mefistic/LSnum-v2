@@ -1,5 +1,8 @@
 // LSnum: Based off aarex's "logarithmica numerus lite"
 // Made with love by Mefistic! <3
+
+const LS_EPSILON = 3.553e-15 // Number to add to all results. This prevents rounding errors, but numbers might be just a tiny bit bigger.
+
 class LSnum
 {
 	constructor(num = 0)
@@ -26,7 +29,7 @@ class LSnum
 		var expDiff = ret.l - x.l
 		if (expDiff >= 15 || x.l == -Infinity) return ret
 		if (expDiff <= -15 || ret.l == -Infinity) return x
-		ret.l = x.l + Math.log10(1 + Math.pow(10, expDiff)) + 1e-14
+		ret.l = x.l + Math.log10(1 + Math.pow(10, expDiff)) + LS_EPSILON
 		return ret
 	}
 
@@ -41,7 +44,7 @@ class LSnum
 			return ret
 		}
 		if (expDiff >= 15 || x.l == -Infinity) return ret
-		ret.l = ret.l + Math.log10(1 - Math.pow(10, -expDiff)) + 1e-14
+		ret.l = ret.l + Math.log10(1 - Math.pow(10, -expDiff)) + LS_EPSILON
 		return ret
 	}
 
@@ -49,7 +52,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		x = new LSnum(x)
-		ret.l = ret.l + x.l + 1e-14
+		ret.l = ret.l + x.l + LS_EPSILON
 		return ret
 	}
 
@@ -57,7 +60,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		x = new LSnum(x)
-		ret.l = ret.l - x.l + 1e-14
+		ret.l = ret.l - x.l + LS_EPSILON
 		return ret
 	}
 
@@ -65,7 +68,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		x = new LSnum(x)
-		ret.l = ret.l * Math.pow(10, x.l) + 1e-14
+		ret.l = ret.l * Math.pow(10, x.l) + LS_EPSILON
 		return ret
 	}
 
@@ -73,7 +76,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		x = new LSnum(x)
-		ret.l = ret.l / Math.pow(10, x.l) + 1e-14
+		ret.l = ret.l / Math.pow(10, x.l) + LS_EPSILON
 		return ret
 	}
 
@@ -82,14 +85,14 @@ class LSnum
 		var ret = new LS(this)
 		x = new LSnum(x)
 		ret.l = ret.l / x.l
-		return new LSnum(ret.l + 1e-14)
+		return new LSnum(ret.l + LS_EPSILON)
 	}
 
 	floor()
 	{
 		var ret = new LS(this)
 		if (ret.l < 0) ret.l = -Infinity
-		else if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l))) + 1e-14
+		else if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
@@ -98,7 +101,7 @@ class LSnum
 		var ret = new LS(this)
 		if (ret.l == -Infinity) ret.l = -Infinity
 		else if (ret.l < 0) ret.l = 0
-		else if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l))) + 1e-14
+		else if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
@@ -106,7 +109,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		if (ret.l < 0) ret.l = -Infinity
-		else if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l))) + 1e-14
+		else if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
@@ -114,7 +117,7 @@ class LSnum
 	{
 		var ret = new LS(this)
 		if (ret.l <= -0.30102999566398) ret.l = -Infinity
-		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l))) + 1e-14
+		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
@@ -217,19 +220,19 @@ function LS(x)
 function scientific(x, places = 0, placesOver1000 = 2)
 {
 	x = LS(x.toFixed(10))
-	var dFormula = Math.max(-x.e + places, 0)
-	var d2Formula = Math.max(-Math.log10((x.e + placesOver1000) / 10) + 3, 0)
-	if (LS(x.toFixed(dFormula)).lt(1000))
+	var d1 = Math.min(Math.max(-x.e + places, 0), 5)
+	var d2 = Math.max(placesOver1000, 0)
+	if (LS(x.toFixed(d1)).lt(1000))
 	{
-		return x.toFixed(dFormula)
+		return x.toFixed(d1)
 	}
 	if (x.lt('e1e15'))
 	{
-		if (x.m.toFixed(d2Formula) == 10)
+		if (x.m.toFixed(d2) == 10)
 		{
-			return (1).toFixed(d2Formula) + 'e' + (x.e + 1)
+			return (1).toFixed(d2) + 'e' + (x.e + 1)
 		}
-		return x.m.toFixed(d2Formula) + 'e' + x.e
+		return x.m.toFixed(placesOver1000) + 'e' + x.e
 	}
 	return 'e' + scientificNotation(x.e, 0, 5)
 }
