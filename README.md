@@ -20,8 +20,8 @@ floor()        <- Rounds a number down;
 ceil()         <- Rounds a number up;
 round()        <- Rounds a number;
 trunc()        <- Removes decimal places from a number;
-toFixed(x)     <- Converts an LS Class Object into a string with (x) decimal places.
-toNumber()     <- Converts an LS Class Object into a regular number.
+toFixed(x)     <- Converts object into a string with (x) decimal places.
+toNumber()     <- Converts object into a regular number.
 min(x)         <- Minimum between two numbers.
 max(x)         <- Maximum between two numbers.
 lt(x)          <- Returns True if Less Than. (<)
@@ -29,6 +29,8 @@ lte(x)         <- Returns True if Less Than or Equal To. (<=)
 eq(x)          <- Returns True if Equal To (==)
 gt(x)          <- Returns True if Greater Than (>)
 gte(x)         <- Returns True if Greater Than or Equal To (>=)
+toString()     <- Converts object into a string with maximum precision.
+toJSON()       <- Redirects to toString()
 ```
 
 LS Other:
