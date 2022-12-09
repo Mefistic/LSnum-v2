@@ -24,10 +24,10 @@ class LSnum
 	{
 		x = new LSnum(x)
 		var expDiff = this.l - x.l
-		if (expDiff >= 15) return this
-		if (expDiff <= -15) return x
-		this.l = this.l + Math.log10(1 + Math.pow(10, expDiff))
-		return x
+		if (expDiff >= 15 || x.l == -Infinity) return this
+		if (expDiff <= -15 || this.l == -Infinity) return x
+		this.l = x.l + Math.log10(1 + Math.pow(10, expDiff))
+		return this
 	}
 
 	sub(x)
