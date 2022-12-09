@@ -1,6 +1,5 @@
 // LSnum: Based off aarex's "logarithmica numerus lite"
 // Made with love by Mefistic! <3
-
 class LSnum
 {
 	constructor(num = 0)
@@ -22,90 +21,101 @@ class LSnum
 
 	add(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		var expDiff = this.l - x.l
-		if (expDiff >= 15 || x.l == -Infinity) return this
-		if (expDiff <= -15 || this.l == -Infinity) return x
-		this.l = x.l + Math.log10(1 + Math.pow(10, expDiff))
-		return this
+		var expDiff = ret.l - x.l
+		if (expDiff >= 15 || x.l == -Infinity) return ret
+		if (expDiff <= -15 || ret.l == -Infinity) return x
+		ret.l = x.l + Math.log10(1 + Math.pow(10, expDiff)) + 1e-14
+		return ret
 	}
 
 	sub(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		var expDiff = this.l - x.l
+		var expDiff = ret.l - x.l
 		if (expDiff < 0)
 		{
-			this.l = -Infinity
-			return this
+			ret.l = -Infinity
+			return ret
 		}
-		if (expDiff >= 15 || x.l == -Infinity) return this
-		this.l = this.l + Math.log10(1 - Math.pow(10, -expDiff))
-		return this
+		if (expDiff >= 15 || x.l == -Infinity) return ret
+		ret.l = ret.l + Math.log10(1 - Math.pow(10, -expDiff)) + 1e-14
+		return ret
 	}
 
 	mul(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = this.l + x.l
-		return this
+		ret.l = ret.l + x.l + 1e-14
+		return ret
 	}
 
 	div(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = this.l - x.l
-		return this
+		ret.l = ret.l - x.l + 1e-14
+		return ret
 	}
 
 	pow(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = this.l * Math.pow(10, x.l)
-		return new LSnum(this)
+		ret.l = ret.l * Math.pow(10, x.l) + 1e-14
+		return ret
 	}
 
 	root(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = this.l / Math.pow(10, x.l)
-		return new LSnum(this)
+		ret.l = ret.l / Math.pow(10, x.l) + 1e-14
+		return ret
 	}
 
 	log(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = this.l / x.l
-		return new LSnum(this.l)
+		ret.l = ret.l / x.l
+		return new LSnum(ret.l + 1e-14)
 	}
 
 	floor()
 	{
-		if (this.l < 0) this.l = -Infinity
-		else if (this.l < 15) this.l = Math.log10(Math.floor(Math.pow(10, this.l) + Math.pow(10, this.l - 14)))
-		return this
+		var ret = new LS(this)
+		if (ret.l < 0) ret.l = -Infinity
+		else if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l))) + 1e-14
+		return ret
 	}
 
 	ceil()
 	{
-		if (this.l == -Infinity) this.l = -Infinity
-		else if (this.l < 0) this.l = 0
-		else if (this.l < 15) this.l = Math.log10(Math.ceil(Math.pow(10, this.l) - Math.pow(10, this.l - 14)))
-		return this
+		var ret = new LS(this)
+		if (ret.l == -Infinity) ret.l = -Infinity
+		else if (ret.l < 0) ret.l = 0
+		else if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l))) + 1e-14
+		return ret
 	}
 
 	trunc()
 	{
-		if (this.l < 0) this.l = -Infinity
-		else if (this.l < 15) this.l = Math.trunc(this.l)
-		return this
+		var ret = new LS(this)
+		if (ret.l < 0) ret.l = -Infinity
+		else if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l))) + 1e-14
+		return ret
 	}
 
 	round()
 	{
-		if (this.l <= -0.30102999566398) this.l = -Infinity
-		if (this.l < 15) return this.l = Math.log10(Math.round(Math.pow(10, this.l)))
-		return this
+		var ret = new LS(this)
+		if (ret.l <= -0.30102999566398) ret.l = -Infinity
+		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l))) + 1e-14
+		return ret
 	}
 
 	toFixed(x)
@@ -124,16 +134,18 @@ class LSnum
 
 	min(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = Math.min(this.l, x.l)
-		return this
+		ret.l = Math.min(ret.l, x.l)
+		return ret
 	}
 
 	max(x)
 	{
+		var ret = new LS(this)
 		x = new LSnum(x)
-		this.l = Math.max(this.l, x.l)
-		return this
+		ret.l = Math.max(ret.l, x.l)
+		return ret
 	}
 
 	lt(x)
@@ -202,11 +214,11 @@ function LS(x)
 // This function will format the number in Scientific Notation.
 // It's always nice to have some sort of preformatting, writing these suck!
 
-function scientificNotation(x, d=3, d2=3)
+function scientific(x, places = 0, placesOver1000 = 2)
 {
-	x = LS(x)
-	dFormula = Math.max(-x.e + d, 0)
-	d2Formula = Math.max(-Math.log10(x.e / 10) + d2, 0)
+	x = LS(x.toFixed(10))
+	var dFormula = Math.max(-x.e + places, 0)
+	var d2Formula = Math.max(-Math.log10((x.e + placesOver1000) / 10) + 3, 0)
 	if (LS(x.toFixed(dFormula)).lt(1000))
 	{
 		return x.toFixed(dFormula)
