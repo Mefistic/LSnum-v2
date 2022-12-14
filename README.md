@@ -20,8 +20,6 @@ floor()        <- Rounds a number down;
 ceil()         <- Rounds a number up;
 round()        <- Rounds a number;
 trunc()        <- Removes decimal places from a number;
-toFixed(x)     <- Converts object into a string with (x) decimal places.
-toNumber()     <- Converts object into a regular number.
 min(x)         <- Minimum between two numbers.
 max(x)         <- Maximum between two numbers.
 lt(x)          <- Returns True if Less Than. (<)
@@ -29,15 +27,18 @@ lte(x)         <- Returns True if Less Than or Equal To. (<=)
 eq(x)          <- Returns True if Equal To (==)
 gt(x)          <- Returns True if Greater Than (>)
 gte(x)         <- Returns True if Greater Than or Equal To (>=)
-toString()     <- Converts object into a string with maximum precision.
-toJSON()       <- Redirects to toString()
 ```
 
 LS Other:
 ```javascript
-LS(x).e   <- Exponent (e)
-LS(x).m   <- Mantissa (m)
-scientificNotation(x, d1, d2)
+toFixed(x)     <- Converts object into a string with (x) decimal places.
+toNumber()     <- Converts object into a regular number.
+toString()     <- Converts object into a string with maximum precision.
+toJSON()       <- Redirects to toString()
+LS(x).e        <- Exponent (e)
+LS(x).m        <- Mantissa (m)
+
+sci(x, places, placesOver1k) <- Scientific Notation
 ```
 
 Note: Quotes are needed when a number is beyond normal Javascript limits.
