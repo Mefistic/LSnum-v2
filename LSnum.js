@@ -212,7 +212,7 @@ function LS(x)
 // This function will format the number in Scientific Notation.
 // It's always nice to have some sort of preformatting, writing these suck!
 
-function scientific(x, places = 0, placesOver1000 = 3)
+function sci(x, places = 0, placesOver1000 = 3)
 {
 	x = LS(x.toFixed(10))
 	var d1 = Math.min(Math.max(-x.e + places, 0), 5)
@@ -229,5 +229,5 @@ function scientific(x, places = 0, placesOver1000 = 3)
 		}
 		return x.m.toFixed(placesOver1000) + 'e' + x.e
 	}
-	return 'e' + scientificNotation(x.e, 0, 5)
+	return 'e' + sci(x.e, 0, 5)
 }
