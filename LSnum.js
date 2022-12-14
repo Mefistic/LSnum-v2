@@ -91,33 +91,28 @@ class LSnum
 	floor()
 	{
 		var ret = new LS(this)
-		if (ret.l < 0) ret.l = -Infinity
-		else if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l))) + LS_EPSILON
+		if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l)))
 		return ret
 	}
 
 	ceil()
 	{
 		var ret = new LS(this)
-		if (ret.l == -Infinity) ret.l = -Infinity
-		else if (ret.l < 0) ret.l = 0
-		else if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l))) + LS_EPSILON
+		if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l)))
 		return ret
 	}
 
 	trunc()
 	{
 		var ret = new LS(this)
-		if (ret.l < 0) ret.l = -Infinity
-		else if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l))) + LS_EPSILON
+		if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l)))
 		return ret
 	}
 
 	round()
 	{
 		var ret = new LS(this)
-		if (ret.l <= -0.30102999566398) ret.l = -Infinity
-		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l))) + LS_EPSILON
+		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l)))
 		return ret
 	}
 
@@ -217,7 +212,7 @@ function LS(x)
 // This function will format the number in Scientific Notation.
 // It's always nice to have some sort of preformatting, writing these suck!
 
-function scientific(x, places = 0, placesOver1000 = 2)
+function scientific(x, places = 0, placesOver1000 = 3)
 {
 	x = LS(x.toFixed(10))
 	var d1 = Math.min(Math.max(-x.e + places, 0), 5)
