@@ -1,7 +1,7 @@
 // LSnum: Based off aarex's "logarithmica numerus lite"
 // Made with love by Mefistic! <3
 
-const LS_EPSILON = 3.553e-15 // Number to add to all results. This prevents rounding errors, but numbers might be just a tiny bit bigger.
+const LS_EPSILON = 1e-15 // Number to add to all results. This prevents rounding errors, but numbers might be just a tiny bit bigger.
 
 class LSnum
 {
@@ -199,35 +199,24 @@ class LSnum
 	}
 }
 
-// QoL !!!
+function LS(x) { return new LSnum(x) }
 
-// LS() Function will redirect you to the actual class.
-// It's handy because you don't have to write as much.
-
-function LS(x)
+function LSformat(x, places = 2, placSci = 2)
 {
-	return new LSnum(x)
-}
+	x = new LSnum(x)
 
-// This function will format the number in Scientific Notation.
-// It's always nice to have some sort of preformatting, writing these suck!
+	x = x.add(LS_EPSILON)
+	places = Math.max(-x.e + places, 0)
+	if (x.toFixed(places) == 0) places++
+	if (x.toFixed(places) < LS_EPSILON*(1+LS_EPSILON)) places = 0
 
-function sci(x, places = 0, placesOver1000 = 3)
-{
-	x = LS(x.toFixed(10))
-	var d1 = Math.min(Math.max(-x.e + places, 0), 5)
-	var d2 = Math.max(placesOver1000, 0)
-	if (LS(x.toFixed(d1)).lt(1000))
+	if (x.toFixed(places) < 1e3) return x.toFixed(places)
+	
+	if (x.lt(`1e1000000000`))
 	{
-		return x.toFixed(d1)
+		if (x.m.toFixed(placSci) == 10) return (1).toFixed(placSci) + `e` + (x.e + 1).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
+		else return x.m.toFixed(placSci) + `e` + x.e.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
 	}
-	if (x.lt('e1e15'))
-	{
-		if (x.m.toFixed(d2) == 10)
-		{
-			return (1).toFixed(d2) + 'e' + (x.e + 1)
-		}
-		return x.m.toFixed(placesOver1000) + 'e' + x.e
-	}
-	return 'e' + sci(x.e, 0, 5)
+
+	return `e` + LSformat(x.l, 0, 5)
 }
