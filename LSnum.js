@@ -205,11 +205,6 @@ function LSformat(x, places = 2, placSci = 2)
 {
 	x = new LSnum(x)
 
-	x = x.add(LS_EPSILON)
-	places = Math.max(-x.e + places, 0)
-	if (x.toFixed(places) == 0) places++
-	if (x.toFixed(places) < LS_EPSILON*(1+LS_EPSILON)) places = 0
-
 	if (x.toFixed(places) < 1e3) return x.toFixed(places)
 	
 	if (x.lt(`1e1000000000`))
