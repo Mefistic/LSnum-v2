@@ -85,7 +85,7 @@ class LSnum
 		var ret = new LS(this)
 		x = new LSnum(x)
 		ret.l = ret.l / x.l
-		return new LSnum(ret.l + LS_EPSILON)
+		return new LSnum(Math.max(ret.l, 0) + LS_EPSILON)
 	}
 
 	floor()
