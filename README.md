@@ -38,7 +38,7 @@ toJSON()       <- Redirects to toString()
 LS(x).e        <- Exponent (e)
 LS(x).m        <- Mantissa (m)
 
-sci(x, places, placesOver1k) <- Scientific Notation
+LSformat(x, places, placSci) <- Scientific Notation
 ```
 
 Note: Quotes are needed when a number is beyond normal Javascript limits.
