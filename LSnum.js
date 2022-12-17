@@ -205,6 +205,8 @@ function LSformat(x, places = 2, placSci = 2)
 {
 	x = new LSnum(x)
 
+	if (x.toFixed(places) >= 1e1) places = Math.max(places-1, 0)
+	if (x.toFixed(places) >= 1e2) places = Math.max(places-1, 0)
 	if (x.toFixed(places) < 1e3) return x.toFixed(places)
 	
 	if (x.lt(`1e1000000000`))
