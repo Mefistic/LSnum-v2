@@ -1,7 +1,7 @@
 // LSnum: Based off aarex's "logarithmica numerus lite"
 // Made with love by Mefistic! <3
 
-const LS_EPSILON = 1e-15 // Number to add to all results. This prevents rounding errors, but numbers might be just a tiny bit bigger.
+const LS_EPSILON = 3.553e-15 // Number to add to all results. This prevents rounding errors, but numbers might be just a tiny bit bigger.
 
 class LSnum
 {
@@ -13,13 +13,13 @@ class LSnum
 		{
 			var indexE = num.indexOf('e')
 			
-			if (indexE == -1) this.l = Math.log10(num)
+			if (indexE == -1) this.l = Math.log10(num) + LS_EPSILON
 			
-			else if (indexE == 0) this.l = Number(num.substring(1))
+			else if (indexE == 0) this.l = Number(num.substring(1)) + LS_EPSILON
 			
-			else this.l = Math.log10(num.substring(0, indexE)) + Number(num.substring(indexE+1))
+			else this.l = Math.log10(num.substring(0, indexE)) + Number(num.substring(indexE+1)) + LS_EPSILON
 		}
-		else if (typeof(num) == 'number') this.l = Math.log10(num)
+		else if (typeof(num) == 'number') this.l = Math.log10(num) + LS_EPSILON
 	}
 
 	add(x)
@@ -84,35 +84,35 @@ class LSnum
 	{
 		var ret = new LS(this)
 		x = new LSnum(x)
-		ret.l = ret.l / x.l
-		return new LSnum(Math.max(ret.l, 0) + LS_EPSILON)
+		ret.l = ret.l / x.l + LS_EPSILON
+		return new LSnum(Math.max(ret.l, 0))
 	}
 
 	floor()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l + LS_EPSILON)))
+		if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
 	ceil()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l + LS_EPSILON)))
+		if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
 	trunc()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l + LS_EPSILON)))
+		if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
 	round()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l + LS_EPSILON)))
+		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l))) + LS_EPSILON
 		return ret
 	}
 
