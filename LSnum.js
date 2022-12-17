@@ -13,13 +13,13 @@ class LSnum
 		{
 			var indexE = num.indexOf('e')
 			
-			if (indexE == -1) this.l = Math.log10(num)
+			if (indexE == -1) this.l = Math.log10(num) + LS_EPSILON
 			
-			else if (indexE == 0) this.l = Number(num.substring(1))
+			else if (indexE == 0) this.l = Number(num.substring(1)) + LS_EPSILON
 			
-			else this.l = Math.log10(num.substring(0, indexE)) + Number(num.substring(indexE+1))
+			else this.l = Math.log10(num.substring(0, indexE)) + Number(num.substring(indexE+1)) + LS_EPSILON
 		}
-		else if (typeof(num) == 'number') this.l = Math.log10(num)
+		else if (typeof(num) == 'number') this.l = Math.log10(num) + LS_EPSILON
 	}
 
 	add(x)
@@ -149,31 +149,31 @@ class LSnum
 	lt(x)
 	{
 		x = new LSnum(x)
-		return this.l < x.l
+		return this.l*LS_EPSILON < x.l*LS_EPSILON
 	}
 
 	lte(x)
 	{
 		x = new LSnum(x)
-		return this.l <= x.l
+		return this.l*LS_EPSILON <= x.l*LS_EPSILON
 	}
 
 	eq(x)
 	{
 		x = new LSnum(x)
-		return this.l == x.l
+		return this.l*LS_EPSILON == x.l*LS_EPSILON
 	}
 
 	gt(x)
 	{
 		x = new LSnum(x)
-		return this.l > x.l
+		return this.l*LS_EPSILON > x.l*LS_EPSILON
 	}
 
 	gte(x)
 	{
 		x = new LSnum(x)
-		return this.l >= x.l
+		return this.l*LS_EPSILON >= x.l*LS_EPSILON
 	}
 
 	get e()
