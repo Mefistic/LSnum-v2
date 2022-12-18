@@ -91,28 +91,28 @@ class LSnum
 	floor()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l)))
+		if (ret.l < 15) ret.l = Math.log10(Math.floor(Math.pow(10, ret.l + LS_EPSILON)))
 		return ret
 	}
 
 	ceil()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l)))
+		if (ret.l < 15) ret.l = Math.log10(Math.ceil(Math.pow(10, ret.l + LS_EPSILON)))
 		return ret
 	}
 
 	trunc()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l)))
+		if (ret.l < 15) ret.l = Math.log10(Math.trunc(Math.pow(10, ret.l + LS_EPSILON)))
 		return ret
 	}
 
 	round()
 	{
 		var ret = new LS(this)
-		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l)))
+		if (ret.l < 15) ret.l = Math.log10(Math.round(Math.pow(10, ret.l + LS_EPSILON)))
 		return ret
 	}
 
