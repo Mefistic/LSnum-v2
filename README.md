@@ -38,8 +38,9 @@ toJSON()       <- Redirects to toString()
 LS(x).e        <- Exponent (e)
 LS(x).m        <- Mantissa (m)
 
-LSformat(x, places, placSci) <- Scientific Notation
-softcap(start, power)        <- Softcap starts at start, power range is 0 -> 1.
+LSN.sci(x, places, placSci) <- Scientific Notation
+LSN.mix(x, places)          <- Mixed Notation (Standard until 1e30)
+softcap(start, power)       <- Softcap starts at start, power range is 0 -> 1.
 ```
 
 Note: Quotes are needed when a number is beyond normal Javascript limits.
